@@ -15,7 +15,7 @@ int main()
 {
 	setbuf(stdout, NULL);
 	int numeroIngresado;
-	int promedio;
+	float promedio;
 	int maximo;
 	int minimo;
 	int i;
@@ -30,9 +30,9 @@ int main()
 		respuestaScanF = scanf("%d" , &numeroIngresado);
 		while(respuestaScanF==0)
 		{
-			printf("Eror reingrese un numero");
+			printf("Eror   reingrese un numero  ");
 
-			respuestaScanF = scanf("%d" , &numeroIngresado);
+			respuestaScanF = scanf("%d" ,   &numeroIngresado);
 		}
 		maximo = numeroIngresado;
 		minimo = numeroIngresado;
