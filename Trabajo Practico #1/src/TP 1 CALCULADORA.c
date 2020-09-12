@@ -1,15 +1,3 @@
-/*
- * 1. Ingresar 1er operando (A=x)
-2. Ingresar 2do operando (B=y)
-3. Calcular la suma (A+B)
-4. Calcular la resta (A-B)
-5. Calcular la division (A/B)
-6. Calcular la multiplicacion (A*B)
-7. Calcular el factorial (A!)
-8. Calcular todas las operaciones
-9. Salir
- */
-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,7 +17,6 @@ int main(void)
 	int resultadoScanF;
 	int banderaNumero1=1;
 	int banderaNumero2=1;
-
 
 	do
 	{
@@ -133,7 +120,5 @@ int main(void)
 			}
 		}
 	}while(opciones!=9);
-
-
-
+return EXIT_SUCCESS;
 }
