@@ -15,21 +15,21 @@
 
 static int employee_generarIdNuevo(void);
 //INICIAR TODOS LOS EMPLEADOS SIN DATOS
-int employee_initArray(Employee* arrayEmployee, int len)
+int employee_initArray(Employee* pArray, int len)
 {
 	int retorno = -1;
-	if(arrayEmployee != NULL && len > 0)
+	if(pArray != NULL && len > 0)
 	{
 		for(int i=0;i<len;i++)
 		{
-			arrayEmployee[i].isEmpty = TRUE;
+			pArray[i].isEmpty = TRUE;
 		}
 		retorno = 0;
 	}
 	return retorno;
 }
 //PEDIR DATOS PARA CARGAR EMPLEADO
-int employee_data(Employee* arrayEmployee,int len)
+int employee_data(Employee* pArray,int len)
 {
 
 	int retorno = -1;
@@ -41,39 +41,39 @@ int employee_data(Employee* arrayEmployee,int len)
 	int id;
 
 
-	if(arrayEmployee!=NULL && len>0)
+	if(pArray!=NULL && len>0)
 	{
 
-		if(employee_espacioLibre(arrayEmployee,QTY_EMPLOYEE,&indice)==0 &&
-			getNombre("Ingrese el nombre: ","\nError, no es un nombre valido.",name,3,LONG_NOMBRE)==0 &&
+		if(employee_espacioLibre(pArray,QTY_EMPLOYEE,&indice)==0 &&
+			getNombre("\nIngrese el nombre: ","\nError, no es un nombre valido.",name,3,LONG_NOMBRE)==0 &&
 			getNombre("Ingrese el apellido: ","Error, no es un apellido valido", lastName,3,LONG_NOMBRE)==0 &&
 			utn_getNumeroFloat(&salary,"ingrese el salario: ","Error no es un salario valido",0,200000,3)==0 &&
-			getInt("Ingrese el sector al que pertenece:\nOpcion1:Caja\nOpcion2:Produccion\nOpcion3:Cocina\nOpcion4:Cafeteria\nNumero a ingresar: ",
+			getInt("Ingrese el sector al que pertenece:\nOPCION 1: Caja\nOPCION 2:Produccion\nOPCION 3:Cocina\nOPCION 4:Cafeteria\nNumero a ingresar: ",
 					"Error, sector invalido.",&sector,3,4,1)==0)
 		{
 			id=employee_generarIdNuevo();
-			employee_alta(arrayEmployee, len, indice, name, lastName, sector, salary,id);
-			printf("El ID de este empleado es: %d",arrayEmployee[indice].id);
+			employee_alta(pArray, len, indice, name, lastName, sector, salary,id);
+			printf("El ID de este empleado es: %d",pArray[indice].id);
 			retorno=0;
 		}
 	}
 	return retorno;
 }
 // DAR ALTA AL EMPLEADO
-int employee_alta(Employee* arrayEmployee,int len ,int indice,char* name,char* lastName,int sector,float salary,int id)
+int employee_alta(Employee* pArray,int len ,int indice,char* name,char* lastName,int sector,float salary,int id)
 {
 	int retorno = -1;
 
-	if(	arrayEmployee != NULL && len > 0 &&	indice >=0 && indice < len
-		&& arrayEmployee[indice].isEmpty == TRUE &&	name!=NULL &&
+	if(	pArray != NULL && len > 0 &&	indice >=0 && indice < len
+		&& pArray[indice].isEmpty == TRUE &&	name!=NULL &&
 		lastName!= NULL && sector>0 && salary <20000)
 	{
-			strncpy(arrayEmployee[indice].name,name,LONG_NOMBRE);
-			strncpy(arrayEmployee[indice].lastName,lastName,LONG_NOMBRE);
-			arrayEmployee[indice].sector=sector;
-			arrayEmployee[indice].salary=salary;
-			arrayEmployee[indice].id=id;
-			arrayEmployee[indice].isEmpty = FALSE;
+			strncpy(pArray[indice].name,name,LONG_NOMBRE);
+			strncpy(pArray[indice].lastName,lastName,LONG_NOMBRE);
+			pArray[indice].sector=sector;
+			pArray[indice].salary=salary;
+			pArray[indice].id=id;
+			pArray[indice].isEmpty = FALSE;
 			retorno = 0;
 	}
 	return retorno;
@@ -87,15 +87,15 @@ static int employee_generarIdNuevo(void)
 }
 
 //BUSCAR INDICE LIBRE
-int employee_espacioLibre(Employee* arrayEmployee, int len, int* pResultado)
+int employee_espacioLibre(Employee* pArray, int len, int* pResultado)
 {
 	int retorno=-1;
 	int i;
-	if(arrayEmployee!=NULL && len>0 && pResultado!=NULL)
+	if(pArray!=NULL && len>0 && pResultado!=NULL)
 	{
 		for(i=0;i<len;i++)
 		{
-			if(arrayEmployee[i].isEmpty==TRUE)
+			if(pArray[i].isEmpty==TRUE)
 			{
 				*pResultado=i;
 				retorno=0;
@@ -106,7 +106,7 @@ int employee_espacioLibre(Employee* arrayEmployee, int len, int* pResultado)
 	return retorno;
 }
 // MODIFICAR EMPLEADO
-int employee_modify(Employee* arrayEmployee,int limite)
+int employee_modify(Employee* pArray,int limite)
 {
 	int retorno=-1;
 	int i;
@@ -115,14 +115,14 @@ int employee_modify(Employee* arrayEmployee,int limite)
 	int flagId=1;
 	Employee bufferEmployee;
 
-	if(getInt("Ingrese el id para modificar los datos","Error, no es un numero valido",&buscarId,3,1000,1)==0 &&
-		arrayEmployee != NULL && limite>0 && buscarId >0
+	if(getInt("Ingrese el ID para modificar los datos","Error, no es un numero valido",&buscarId,3,1000,1)==0 &&
+		pArray != NULL && limite>0 && buscarId >0
 		)
 	{
 
 		for(i=0;i<limite;i++)
 		{
-			if(arrayEmployee[i].isEmpty==FALSE && arrayEmployee[i].id==buscarId)
+			if(pArray[i].isEmpty==FALSE && pArray[i].id==buscarId)
 			{
 				flagId=0;
 				getInt("Opciones a modificar\nOpcion 1: Nombre\nOpcion 2: Apellido\nOpcion 3: Salario\nOpcion 4: Sector\n"
@@ -133,27 +133,27 @@ int employee_modify(Employee* arrayEmployee,int limite)
 					case 1:
 							if(getNombre("Ingrese el nuevo nombre: ","\nError, no es un nombre valido.",bufferEmployee.name,3,LONG_NOMBRE)==0)
 							{
-								strncpy(arrayEmployee[i].name,bufferEmployee.name,LONG_NOMBRE);
+								strncpy(pArray[i].name,bufferEmployee.name,LONG_NOMBRE);
 							}
 							break;
 					case 2:
 							if(getNombre("Ingrese el nuevo apellido: ","\nError, no es un nombre valido.",bufferEmployee.lastName,3,LONG_NOMBRE)==0)
 							{
-								strncpy(arrayEmployee[i].lastName,bufferEmployee.lastName,LONG_NOMBRE);
+								strncpy(pArray[i].lastName,bufferEmployee.lastName,LONG_NOMBRE);
 							}
 
 						break;
 					case 3:
 							if(utn_getNumeroFloat(&bufferEmployee.salary,"ingrese el nuevo salario: ","Error no es un salario valido",0,200000,3)==0)
 							{
-								arrayEmployee[i].salary=bufferEmployee.salary;
+								pArray[i].salary=bufferEmployee.salary;
 							}
 							break;
 					case 4:
 							if(getInt("Ingrese el nuevo sector al que pertenece:\nOpcion1:Caja\nOpcion2:Produccion\nOpcion3:Cocina\nOpcion4:Cafeteria\nNumero a ingresar: ",
 										"Error, sector invalido.",&bufferEmployee.sector,3,4,1)==0)
 							{
-								arrayEmployee[i].sector=bufferEmployee.sector;
+								pArray[i].sector=bufferEmployee.sector;
 							}
 							break;
 
@@ -171,20 +171,20 @@ int employee_modify(Employee* arrayEmployee,int limite)
 	return retorno;
 }
 // ELIMINAR EMPLEADO
-int employee_unsubscribe(Employee* arrayEmployee,int limite)
+int employee_unsubscribe(Employee* pArray,int limite)
 {
 	int retorno=-1;
 	int i;
 	int buscarId;
 
-	if(getInt("Ingrese el id para borrar  los datos","Error, no es un numero valido",&buscarId,3,1000,1)==0 &&
-		arrayEmployee != NULL && limite>0 && buscarId >0)
+	if(getInt("Ingrese el ID del empleado para borrar sus datos","Error, no es un ID valido",&buscarId,3,1000,1)==0 &&
+		pArray != NULL && limite>0 && buscarId >0)
 	{
 		for(i=0;i<limite;i++)
 		{
-			if(arrayEmployee[i].isEmpty==FALSE && arrayEmployee[i].id == buscarId)
+			if(pArray[i].isEmpty==FALSE && pArray[i].id == buscarId)
 				{
-					arrayEmployee[i].isEmpty = TRUE;
+					pArray[i].isEmpty = TRUE;
 					retorno=0;
 					break;
 				}
@@ -194,50 +194,59 @@ int employee_unsubscribe(Employee* arrayEmployee,int limite)
 }
 
 // ORDENAR
-int employee_sortEmployee(Employee* arrayEmployee, int len, int order)
+int employee_sortEmployee(Employee* pArray, int len, int order)
 {
 	Employee bufferEmployee;
 	int retorno=-1;
 	int i;
 	int flagOrder=1;
 
-	if(arrayEmployee!=NULL && len>0 && order>=0)
+	if(pArray!=NULL && len>0 && (order>0 || order<5))
 	{
 		while(flagOrder==1)
 		{
 			flagOrder=0;
 			for(i=0;i<len-1;i++)
 			{
-				if(order==1 && arrayEmployee[i].sector<arrayEmployee[i+1].sector)
+				if(order==2&& pArray[i].sector<pArray[i+1].sector)
 				{
-					bufferEmployee=arrayEmployee[i];
-					arrayEmployee[i]=arrayEmployee[i+1];
-					arrayEmployee[i+1]=bufferEmployee;
+					bufferEmployee=pArray[i];
+					pArray[i]=pArray[i+1];
+					pArray[i+1]=bufferEmployee;
 					flagOrder=1;
 				}
-				else if(arrayEmployee[i].sector==arrayEmployee[i+1].sector &&
-						strncmp(arrayEmployee[i].lastName,arrayEmployee[i+1].lastName,LONG_NOMBRE)>0)
+				else if(pArray[i].sector==pArray[i+1].sector &&
+						strncmp(pArray[i].lastName,pArray[i+1].lastName,LONG_NOMBRE)>0)
 				{
-					bufferEmployee=arrayEmployee[i];
-					arrayEmployee[i]=arrayEmployee[i+1];
-					arrayEmployee[i+1]=bufferEmployee;
+					bufferEmployee=pArray[i];
+					pArray[i]=pArray[i+1];
+					pArray[i+1]=bufferEmployee;
 					flagOrder=1;
 				}
-				if(order==0&& arrayEmployee[i].sector>arrayEmployee[i+1].sector)
+				if(order==3&& pArray[i].sector>pArray[i+1].sector)
 					{
-						bufferEmployee=arrayEmployee[i];
-						arrayEmployee[i]=arrayEmployee[i+1];
-						arrayEmployee[i+1]=bufferEmployee;
+						bufferEmployee=pArray[i];
+						pArray[i]=pArray[i+1];
+						pArray[i+1]=bufferEmployee;
 						flagOrder=1;
 					}
-					else if(arrayEmployee[i].sector==arrayEmployee[i+1].sector &&
-							strncmp(arrayEmployee[i].lastName,arrayEmployee[i+1].lastName,LONG_NOMBRE)>0)
+					else if(pArray[i].sector==pArray[i+1].sector &&
+							strncmp(pArray[i].lastName,pArray[i+1].lastName,LONG_NOMBRE)>0)
 					{
-						bufferEmployee=arrayEmployee[i];
-						arrayEmployee[i]=arrayEmployee[i+1];
-						arrayEmployee[i+1]=bufferEmployee;
+						bufferEmployee=pArray[i];
+						pArray[i]=pArray[i+1];
+						pArray[i+1]=bufferEmployee;
 						flagOrder=1;
 					}
+
+			}
+			if(order==1)
+			{
+				employee_imprimir(pArray,len);
+			}
+			else if(order==4)
+			{
+				break;
 			}
 		}
 	}
@@ -251,19 +260,19 @@ int employee_sortEmployee(Employee* arrayEmployee, int len, int order)
 
 
 //SALARIOS ACUMULADOS
-int employee_salary(Employee* arrayEmployee,int len,float* pResultado)
+int employee_salary(Employee* pArray,int len,float* pResultado)
 {
 	int retorno=-1;
 	int i;
 	float acumulador=0;
 
-	if(arrayEmployee!=NULL && len>0 && pResultado!=NULL)
+	if(pArray!=NULL && len>0 && pResultado!=NULL)
 	{
 		for(i=0;i<len;i++)
 		{
-			if(arrayEmployee[i].isEmpty==FALSE)
+			if(pArray[i].isEmpty==FALSE)
 			{
-				acumulador = acumulador + arrayEmployee[i].salary;
+				acumulador = acumulador + pArray[i].salary;
 				retorno=0;
 			}
 		}
@@ -273,17 +282,17 @@ int employee_salary(Employee* arrayEmployee,int len,float* pResultado)
 }
 
 // EMPLEADOS CARGADOS
-int employee_contarId(Employee* arrayEmployee,int len,int* cantidadId)
+int employee_contarId(Employee* pArray,int len,int* cantidadId)
 {
 	int retorno=-1;
 	int contadorId=0;
 	int i;
 
-	if(arrayEmployee!=NULL && len>0 && cantidadId!=NULL)
+	if(pArray!=NULL && len>0 && cantidadId!=NULL)
 	{
 		for(i=0;i<len;i++)
 		{
-			if(arrayEmployee[i].isEmpty==FALSE && arrayEmployee[i].id>0)
+			if(pArray[i].isEmpty==FALSE && pArray[i].id>0)
 			{
 				contadorId++;
 				retorno=0;
@@ -308,17 +317,17 @@ int employee_promedio(float salario,int cantidadId,float* pResultado)
 }
 
 //QUE EMPLEADO SUPERA EL SALARIO MINIMO
-int employee_higherSalary(Employee* arrayEmployee,int len,float promedio, int* pResultado)
+int employee_higherSalary(Employee* pArray,int len,float promedio, int* pResultado)
 {
 	int retorno=-1;
 	int i;
 	int contadorSalariosAltos=0;
 
-	if(arrayEmployee!=NULL && len>0 && promedio>0 && pResultado!=NULL)
+	if(pArray!=NULL && len>0 && promedio>0 && pResultado!=NULL)
 	{
 		for(i=0;i<len;i++)
 		{
-			if(arrayEmployee[i].isEmpty==FALSE && arrayEmployee[i].salary > promedio)
+			if(pArray[i].isEmpty==FALSE && pArray[i].salary > promedio)
 			{
 				contadorSalariosAltos++;
 				retorno=0;
@@ -329,7 +338,7 @@ int employee_higherSalary(Employee* arrayEmployee,int len,float promedio, int* p
 	return retorno;
 }
 
-int employee_promedioTotal(Employee* arrayEmployee,int len)
+int employee_promedioTotal(Employee* pArray,int len)
 {
 	int retorno=-1;
 	float salarioTotal;
@@ -337,13 +346,13 @@ int employee_promedioTotal(Employee* arrayEmployee,int len)
 	float promedioTotal;
 	int salarioMayorPromedio;
 
-	if(employee_salary(arrayEmployee,len,&salarioTotal)==0 &&
-		employee_contarId(arrayEmployee,len,&empleadosTotal)==0)
+	if(employee_salary(pArray,len,&salarioTotal)==0 &&
+		employee_contarId(pArray,len,&empleadosTotal)==0)
 	{
 		employee_promedio(salarioTotal,empleadosTotal,&promedioTotal);
 	}
-	printf("El salario promedio es: %.2f",promedioTotal);
-	if(employee_higherSalary(arrayEmployee,len,promedioTotal,&salarioMayorPromedio)==0)
+	printf("El salario promedio es: $%.2f",promedioTotal);
+	if(employee_higherSalary(pArray,len,promedioTotal,&salarioMayorPromedio)==0)
 	{
 		printf("\nEstos superan el promedio: %d",salarioMayorPromedio);
 	}
@@ -358,17 +367,17 @@ int employee_promedioTotal(Employee* arrayEmployee,int len)
 
 //IMPRIMIR
 
-int employee_imprimir(Employee* arrayEmployee, int len)
+int employee_imprimir(Employee* pArray, int len)
 {
 	int retorno = -1;
-	if(arrayEmployee != NULL && len > 0)
+	if(pArray != NULL && len > 0)
 	{
 		for(int i=0;i<len;i++)
 		{
-			if(arrayEmployee[i].isEmpty == FALSE)
+			if(pArray[i].isEmpty == FALSE)
 			{
-				printf("\nNombre: %s - Apellido: %s\nID: %d Sector: %d Salario: %.2f",arrayEmployee[i].name,arrayEmployee[i].lastName,arrayEmployee[i].id,
-						arrayEmployee[i].sector,arrayEmployee[i].salary);
+				printf("\nSECTOR: %d - APELLIDO: %s - NOMBRE: %s - SALARIO: $%.2f - ID: %d",pArray[i].sector,pArray[i].lastName,pArray[i].name,pArray[i].salary,pArray[i].id,
+						pArray[i].sector,pArray[i].salary);
 			}
 		}
 		retorno = 0;
@@ -378,18 +387,37 @@ int employee_imprimir(Employee* arrayEmployee, int len)
 
 
 
-int employee_menu()
+int employee_menu(int* pOpcion)
 {
 	int retorno;
 
-	printf("********************************************************************\n\n");
-	printf("*************BIENVENIDO*********************************************\n\n");
+	printf("\n\n*************BIENVENIDO*************\n\n");
+	printf("****************************************\n\n");
 	printf("*INGRESE LA OPCION QUE DESEE\n");
 	printf("*>OPCION 1: ALTA A EMPLEADO.\n");
 	printf("*>OPCION 2: MODIFICAR DATOS EMPLEADO.\n");
 	printf("*>OPCION 3: BAJA A EMPLEADO.\n");
+	printf("*>OPCION 4: INFORMAR.\n");
+	printf("*>OPCION 5: SALIR.\n");
 
-	getInt("\ningresa la opcion: ","Error",&retorno,3,7,1);
-
+	getInt("\ningresa la opcion: ","Error",&retorno,3,5,1);
+	*pOpcion=retorno;
 	return retorno;
 }
+
+int employee_report(int* pOpcion)
+{
+	int retorno;
+	printf("\n\n*************INFORMES*************\n\n");
+	printf("****************************************\n\n");
+	printf("*INGRESE LA OPCION QUE DESEE\n");
+	printf("*>OPCION 1: IMPRIMIR LISTADO.\n");
+	printf("*>OPCION 2: PROMEDIO SALARIO Y CUANTOS EMPLEADOS SUPERAN ESTE PROMEDIO.\n");
+	printf("*>OPCION 3: VOLVER AL MENU PRINCIPAL.\n");
+
+
+	getInt("\ningresa la opcion: ","Error",&retorno,3,4,1);
+	*pOpcion=retorno;
+	return retorno;
+}
+
