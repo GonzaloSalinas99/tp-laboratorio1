@@ -7,6 +7,7 @@
 #define QTY_EMPLOYEE 1000
 
 
+
 int main(void)
 {
 	setbuf(stdout,NULL);
@@ -15,6 +16,7 @@ int main(void)
 	int opcionInforme;
 	int order;
 	int flagEmployee=0;
+
 
 	employee_initArray(list,QTY_EMPLOYEE);
 
@@ -26,52 +28,54 @@ int main(void)
 
 					if(employee_data(list, QTY_EMPLOYEE)==0)
 					{
-						printf("\nEmpleado cargado correctamente\n");
+						printf("\n-*Empleado cargado correctamente\n");
 						flagEmployee=1;
 					}
 				break;
 			case 2:
-					if(employee_modify(list,QTY_EMPLOYEE)==0 && flagEmployee==1)
+					if(flagEmployee==1 && employee_modify(list,QTY_EMPLOYEE)==0)
 					{
-						printf("\nEmpleado modificado correctamente\n");
+						printf("\n-*Empleado modificado correctamente\n");
 					}
 					else
 					{
-						printf("No se pudo realizar la modificacion\n");
+						printf("-*No se pudo realizar la modificacion\n");
 					}
 				break;
 			case 3:
-					if(employee_unsubscribe(list,QTY_EMPLOYEE)==0 && flagEmployee==1)
+					if(flagEmployee==1 && employee_unsubscribe(list,QTY_EMPLOYEE)==0)
 					{
-						printf("\nEmpleado borrado correctamente\n");
+						printf("\n-*Empleado borrado correctamente\n");
 					}
 				break;
 			case 4:
-
-				do
-				{
-					switch(employee_report(&opcionInforme))
+					if(flagEmployee==1)
+					{	do
 						{
-						case 1:
-								if(getInt("\n\n<OPCION 1: IMPRIMIR.\n"
-										"OPCION 2 : ORDENAR DE FORMA ASCENDENTE.\n"
-										"OPCION 3 : ORDENAR DE FORMA DESCENDENTE.\n"
-										"OPCION 4 : VOLVER AL MENU DE INFORMES.\n\n"
-										"Ingrese opcion elegida: ","\nError,Opcion incorrecta.\n",&order,3,4,1)==0)
+							switch(employee_report(&opcionInforme))
 								{
-									employee_sortEmployee(list, QTY_EMPLOYEE, order);
+								case 1:
+										if(getInt("\n\n-*OPCION 1 :ORDENAR DE FORMA ASCENDENTE.\n"
+												"-*OPCION 2 : ORDENAR DE FORMA DESCENTE.\n"
+												"-*OPCION 3 : VOLVER AL MENU DE INFORMES.\n\n"
+												"-*Ingrese opcion elegida: ","\nError,Opcion incorrecta.\n",&order,3,3,1)==0)
+										{
+											employee_sortEmployee(list, QTY_EMPLOYEE, order);
+										}
+									break;
+
+								case 2:
+										employee_imprimir(list, QTY_EMPLOYEE);
+									break;
+								case 3:
+										employee_promedioTotal(list,QTY_EMPLOYEE);
+									break;
 								}
+						}while(opcionInforme!=4);
+
+
 							break;
-
-						case 2:
-								employee_promedioTotal(list, QTY_EMPLOYEE && flagEmployee==1);
-							break;
-						}
-				}while(opcionInforme!=3);
-
-
-					break;
-
+					}
 		}
 	}while(opcionInicio!=5);
 

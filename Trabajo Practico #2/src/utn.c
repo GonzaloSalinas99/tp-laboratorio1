@@ -94,7 +94,7 @@ int utn_getNumeroFloat(float* pResultado,char* mensaje,char* mensajeError,float 
 static int getFloat(float* pFloat)
 {
 	int retorno = 0;
-	char bufferFloat[64];
+	char bufferFloat[5000];
 	if(pFloat != NULL){
 		fflush(stdin);
 

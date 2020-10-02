@@ -38,6 +38,7 @@ int employee_higherSalary(Employee* pArray,int len,float promedio, int* pResulta
 int employee_promedio(float salario,int cantidadId,float* pResultado);
 int employee_contarId(Employee* pArray,int len,int* cantidadId);
 int employee_salary(Employee* pArray,int len,float* pResultado);
+int employee_buscarIndicePorId (Employee* pArray, int limite,int idBuscar,int * pIndice);
 
 
 
