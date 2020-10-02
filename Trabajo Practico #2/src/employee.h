@@ -29,6 +29,7 @@ int employee_initArray(Employee* pArray, int len);
 int employee_data(Employee* pArray,int len);
 int employee_alta(Employee* pArray,int len ,int indice,char* name,char* lastName,int sector,float salary,int id);
 int employee_espacioLibre(Employee* pArray, int len, int* pResultado);
+int employee_buscarIndicePorId (Employee* pArray, int len,int idBuscar,int * pIndice);
 int employee_modify(Employee* pArray,int limite);
 int employee_unsubscribe(Employee* pArray,int limite);
 int employee_sortEmployee(Employee* pArray, int len,int order);
@@ -38,9 +39,5 @@ int employee_higherSalary(Employee* pArray,int len,float promedio, int* pResulta
 int employee_promedio(float salario,int cantidadId,float* pResultado);
 int employee_contarId(Employee* pArray,int len,int* cantidadId);
 int employee_salary(Employee* pArray,int len,float* pResultado);
-int employee_buscarIndicePorId (Employee* pArray, int limite,int idBuscar,int * pIndice);
-
-
-
 
 #endif /* EMPLOYEE_H_ */

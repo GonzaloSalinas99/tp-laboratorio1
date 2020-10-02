@@ -17,11 +17,20 @@ static int esFlotante(char* array,int limite);
 
 
 
-
+/*
+ * getInt : Solicita un numero al usuario, luego de verificarlo devuelve el resultado
+ * mensaje : El mensaje que imprime para pedir un valor.
+ * mensajeError: El mensaje que imprime si el rango no es valido.
+ * pResultado : Direccion de memoria de la variable donde escribe el valor ingresado por el usuario
+ * Reintentos: cantidad de veces que tiene el usuario para ingresar un valor valido
+ * maximo : valor maximo valido (inclusive)
+ * minimo : valor minimo valido (inclusive)
+ * Retorno: devuelve un 0 si esta todoOK. Devuelve -1 si hubo un error.
+ */
 int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int maximo,int minimo)
 {
 	int retorno = -1;
-	int bufferInt;
+	char bufferChar[4096];
 	int resultadoScanf;
 	if(		mensaje != NULL &&
 			mensajeError != NULL &&
@@ -33,13 +42,13 @@ int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int
 		{
 			printf("%s",mensaje);
 			fflush(stdin);
-			resultadoScanf = scanf("%d" , &bufferInt);
-			if(resultadoScanf == 1 && bufferInt >= minimo && bufferInt <= maximo)
-			{
-				retorno = 0;
-				*pResultado = bufferInt;
-				break;
-			}
+			if(myGets(bufferChar,LIMITE_NOMBRE) == 0 && strnlen(bufferChar,sizeof(bufferChar)-1)<= 4096 &&
+					esNumerica(bufferChar,4096) != 0 )
+						{
+							retorno=0;
+							strncpy(pResultado,bufferChar,4096);
+							break;
+						}
 			else
 			{
 				printf("%s",mensajeError);
@@ -48,6 +57,34 @@ int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int
 		}while(reintentos >= 0);
 	}
 	return retorno;
+}
+/*
+ *brief verifica una cadena recibida para determinar si es un numero valido
+ *param char* cadena Cadena a ser analizada
+ *param int limite Indica la cantidad maxima de caracteres
+ *return (0) si no pude ser validado el numero (1) Si el numero es valido
+ */
+int esNumerica(char* array,int limite)
+{
+	int retorno = -1;
+	int i = 0;
+
+	if(array != NULL && limite > 0){
+		retorno = 1;
+		if(array[0] != '+' || array[0] != '-')
+		{
+			i = 1;
+		}
+		while(array[i] != '\0')
+		{
+			if((array[i] < '0' || array[i] > '9'))
+			{
+				retorno = 0;
+				break;
+			}
+		}
+	}
+return retorno;
 }
 
 /*
@@ -141,7 +178,15 @@ static int esFlotante(char* array,int limite){
 	return retorno;
 }
 
-
+/*
+ * brief : Solicita un numero nombre al usuario, luego de verificarlo devuelve el resultado
+ * mensaje : El mensaje que imprime para pedir un nombre.
+ * mensajeError: El mensaje que imprime si el rango no es valido.
+ * pResultado : Direccion de memoria de la variable donde escribe el nombre ingresado por el usuario
+ * Reintentos: cantidad de veces que tiene el usuario para ingresar un valor valido
+ * Retorno: devuelve un 0 si esta todoOK. Devuelve -1 si hubo un error.
+ *
+ */
 int getNombre(char* mensaje,char* mensajeError,char* pResultado, int reintentos, int limite)
 {
 	int retorno = -1;
@@ -184,8 +229,7 @@ int esUnNombreValido(char* cadena,int limite)
 	{
 
 		if(	(cadena[i] < 'A' || cadena[i] > 'Z') &&
-			(cadena[i] < 'a' || cadena[i] > 'z') &&
-			cadena[i] != '.')
+			(cadena[i] < 'a' || cadena[i] > 'z') )
 		{
 			respuesta = 0;
 			break;
@@ -193,10 +237,26 @@ int esUnNombreValido(char* cadena,int limite)
 	}
 	return respuesta;
 }
-static int myGets(char *cadena, int longitud)
+static int myGets(char* cadena, int longitud)
 {
+	int retorno = -1; //ERROR
+	char bufferString[4096];
 	fflush(stdin);
-	fgets (cadena, longitud, stdin);
-	cadena[strlen (cadena) - 1] = '\0';
-	return 0;
+
+	if(cadena != NULL && longitud > 0)
+	{
+		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL != cadena[0] != '\n')
+			{
+				if(bufferString[strnlen(bufferString,sizeof(bufferString))-1] == '\n')
+				{
+					bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
+				}
+				if(strlen(bufferString) <= longitud)
+				{
+					strncpy(cadena,bufferString,longitud);
+					retorno = 0;
+				}
+			}
+		}
+		return retorno;
 }
