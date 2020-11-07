@@ -213,13 +213,38 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno=-1;
 	int orden;
-
+	int opcion=0;
 	if(pArrayListEmployee!=NULL)
 	{
-		if(getInt("\n*>Ingrese (1) Ascendente o (0) Descendente\n","Error",&orden,3,1,0)==0)
-		{
-			ll_sort(pArrayListEmployee, employee_ordenarPorNombre,orden);
-		}
+		employee_menuOrdenado();
+		getInt("\nIngrese la opcion:", "ERROR.Numero invalido.", &opcion,3, 5, 1);
+			switch(opcion)
+			{
+				case 1:
+					if(getInt("\n*>Ingrese (1) Ascendente o (0) Descendente\n","Error",&orden,3,1,0)==0)
+						{
+							ll_sort(pArrayListEmployee, employee_ordenarPorNombre,orden);
+						}
+					break;
+				case 2:
+					if(getInt("\n*>Ingrese (1) Ascendente o (0) Descendente\n","Error",&orden,3,1,0)==0)
+						{
+							ll_sort(pArrayListEmployee, employee_ordenarPorId,orden);
+						}
+					break;
+				case 3:
+					if(getInt("\n*>Ingrese (1) Ascendente o (0) Descendente\n","Error",&orden,3,1,0)==0)
+						{
+							ll_sort(pArrayListEmployee, employee_ordenarPorHorasTrabajadas,orden);
+						}
+					break;
+				case 4:
+					if(getInt("\n*>Ingrese (1) Ascendente o (0) Descendente\n","Error",&orden,3,1,0)==0)
+						{
+							ll_sort(pArrayListEmployee, employee_ordenarPorSueldo,orden);
+						}
+					break;
+			}
 		retorno=0;
 	}
     return retorno;
@@ -315,7 +340,24 @@ int controller_menu(int* pOpcion)
 	printf("*>OPCION 10: Salir.\n");
 	printf("********************************************");
 
-	getInt("\ningresa la opcion: ","Error",&retorno,3,5,1);
+	getInt("\ningresa la opcion: ","Error",&retorno,3,10,1);
 	*pOpcion=retorno;
+	return retorno;
+}
+int controller_menuOrdenado(int* op)
+{
+	int retorno;
+	printf("\n\n*************ORDENADO*************\n\n");
+	printf("****************************************\n\n");
+	printf("*INGRESE LA OPCION QUE DESEE\n");
+	printf("*>OPCION 1: ORDENAR POR NOMBRE.\n");
+	printf("*>OPCION 2: ORDENAR POR ID.\n");
+	printf("*>OPCION 3: ORDENAR POR HORAS TRABAJADAS.\n");
+	printf("*>OPCION 4: ORDENAR POR SUELDO.\n");
+	printf("*>OPCION 5: Salir.\n");
+	printf("********************************************");
+
+	getInt("\ningresa la opcion: ","Error",&retorno,3,10,1);
+	*op=retorno;
 	return retorno;
 }

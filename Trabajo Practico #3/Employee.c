@@ -314,3 +314,109 @@ int employee_ordenarPorNombre (void* thisA, void* thisB)
 	}
 	return retorno;
 }
+/*
+ * brief Ordena por ID
+ * param void* thisA puntero donde se recibira el primer empleado
+ * param void* thisA puntero donde se recibira el segundo empleado
+ * return (0)si salio todo bien (-1)si hubo un error
+ */
+int employee_ordenarPorId(void* thisA,void* thisB)
+{
+	int retorno;
+	Employee* auxA = (Employee*)thisA;
+	Employee* auxB = (Employee*)thisB;
+	int idA;
+	int idB;
+	employee_getId(auxA,&idA);
+	employee_getId(auxB,&idB);
+
+	if(idA>idB)
+	{
+		retorno=1;
+	}
+	else if(idA<idB)
+	{
+		retorno=-1;
+	}
+	else
+	{
+		retorno=0;
+	}
+	return retorno;
+}
+/*
+ * brief Ordena por horas trabajadas
+ * param void* thisA puntero donde se recibira el primer empleado
+ * param void* thisA puntero donde se recibira el segundo empleado
+ * return (0)si salio todo bien (-1)si hubo un error
+ */
+int employee_ordenarPorHorasTrabajadas(void* thisA,void* thisB)
+{
+	int retorno;
+	Employee* auxA = (Employee*)thisA;
+	Employee* auxB = (Employee*)thisB;
+	int idA;
+	int idB;
+	employee_getHorasTrabajadas(auxA,&idA);
+	employee_getHorasTrabajadas(auxB,&idB);
+
+	if(idA>idB)
+	{
+		retorno=1;
+	}
+	else if(idA<idB)
+	{
+		retorno=-1;
+	}
+	else
+	{
+		retorno=0;
+	}
+	return retorno;
+}
+/*
+ * brief Ordena por sueldo
+ * param void* thisA puntero donde se recibira el primer empleado
+ * param void* thisA puntero donde se recibira el segundo empleado
+ * return (0)si salio todo bien (-1)si hubo un error
+ */
+int employee_ordenarPorSueldo(void* thisA,void* thisB)
+{
+	int retorno;
+	Employee* auxA = (Employee*)thisA;
+	Employee* auxB = (Employee*)thisB;
+	int idA;
+	int idB;
+	employee_getSueldo(auxA,&idA);
+	employee_getSueldo(auxB,&idB);
+
+	if(idA>idB)
+	{
+		retorno=1;
+	}
+	else if(idA<idB)
+	{
+		retorno=-1;
+	}
+	else
+	{
+		retorno=0;
+	}
+	return retorno;
+}
+/*
+ * brief menu de opciones
+ */
+void employee_menuOrdenado()
+{
+	printf("\n\n*************ORDENADO*************\n\n");
+	printf("****************************************\n\n");
+	printf("*INGRESE LA OPCION QUE DESEE\n");
+	printf("*>OPCION 1: ORDENAR POR NOMBRE.\n");
+	printf("*>OPCION 2: ORDENAR POR ID.\n");
+	printf("*>OPCION 3: ORDENAR POR HORAS TRABAJADAS.\n");
+	printf("*>OPCION 4: ORDENAR POR SUELDO.\n");
+	printf("*>OPCION 5: Salir.\n");
+	printf("********************************************");
+
+}

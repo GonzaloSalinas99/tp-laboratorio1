@@ -32,6 +32,12 @@ int employee_printEmployee(LinkedList* pArrayListEmployee, int index);
 int employee_generarId(LinkedList* this);
 int employee_buscarIndicePorId(LinkedList* this, int idABuscar,int* index);
 int employee_ordenarPorNombre (void* thisA, void* thisB);
+int employee_ordenarPorId(void* thisA,void* thisB);
+int employee_ordenarPorSueldo(void* thisA,void* thisB);
+int employee_ordenarPorHorasTrabajadas(void* thisA,void* thisB);
+
+
+void employee_menuOrdenado();
 
 
 #endif // employee_H_INCLUDED
