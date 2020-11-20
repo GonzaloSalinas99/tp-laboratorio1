@@ -72,7 +72,7 @@ int main(void)
 			}
 			break;
 		case 7:
-			if(banderaNumero1==0 && banderaNumero2==0 && factoreo(numero2,&resultadoFactoreo)==0)
+			if( factoreo(numero1,&resultadoFactoreo)==0 && banderaNumero1==0 && banderaNumero2==0 )
 			{
 				printf("El %d factorizado es: %d",numero1,resultadoFactoreo);
 			}
@@ -81,7 +81,7 @@ int main(void)
 				printf("No se pudo realizar el factoreo de %d",numero1);
 			}
 
-			if(banderaNumero1==0 && banderaNumero2==0 && factoreo(numero2,&resultadoFactoreo)==0 )
+			if(factoreo(numero2,&resultadoFactoreo)==0 && banderaNumero1==0 && banderaNumero2==0)
 			{
 				printf("\nEl %d factorizado es: %d",numero2,resultadoFactoreo);
 			}
