@@ -56,7 +56,11 @@ int factoreo(int numeroIngresado, int* resultado)
 {
 	int retorno = -1;
 	int bufferInt = 1;
-	if(numeroIngresado>=0 && resultado != NULL)
+	if(numeroIngresado==0)
+	{
+		*resultado=1;
+	}
+	else if((numeroIngresado>0 && numeroIngresado <13) && resultado != NULL)
 	{
 		for(int i=1; i<=numeroIngresado; i++)
 		{
@@ -64,6 +68,13 @@ int factoreo(int numeroIngresado, int* resultado)
 		}
 		*resultado=bufferInt;
 		retorno = 0;
+	}
+	else
+	{
+		if(numeroIngresado>12)
+		{
+			printf("\n No se puede realizar el factoreo\n");
+		}
 	}
 	return retorno;
 }
@@ -166,5 +177,30 @@ int obtenerNumeroEntero(char* mensaje, char* mensajeError, int* pResultado,int r
 	return retorno;
 }
 
+/*
+ * brief menu de opciones
+ * return 0 si salio todo bien -1 si hubo un error
+ */
+int calculadora_menu(int *pOpcion)
+{
+	int retorno=-1;
+	printf("\n\n*************BIENVENIDO*************\n\n");
+	printf("****************************************\n\n");
+	printf("*INGRESE LA OPCION QUE DESEE\n");
+	printf("*>OPCION 1: Ingresar primer numero.\n");
+	printf("*>OPCION 2: Ingresar segundo numero.\n");
+	printf("*>OPCION 3: Sumar.\n");
+	printf("*>OPCION 4: Restar.\n");
+	printf("*>OPCION 5: Multiplicar.\n");
+	printf("*>OPCION 6: Dividir.\n");
+	printf("*>OPCION 7: Factorizar.\n");
+	printf("*>OPCION 8: Realizar todos los calculos.\n");
+	printf("*>OPCION 9: Salir.\n");
+	printf("********************************************");
 
 
+	getInt("\ningresa la opcion: ","Error Numero incorrecto",&retorno,3,1,9);
+
+	*pOpcion=retorno;
+	return retorno;
+}

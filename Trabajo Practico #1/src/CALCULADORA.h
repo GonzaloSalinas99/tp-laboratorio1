@@ -15,6 +15,7 @@ int suma(int primerOperando, int segundoOperando, int* resultado);
 int resta(int primerOperando, int segundoOperando, int* resultado);
 int multiplicacion(int primerOperando, int segundoOperando, int* resultado);
 int division(int primerOperando, int segundoOperando, float* resultado);
+int calculadora_menu(int* pOpcion);
 
 
 
