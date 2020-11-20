@@ -21,6 +21,7 @@ int main(void)
 		{
 			switch(employee_menu(&opcionInicio))
 			{
+			printf("%d opcion",opcionInicio);
 				case 1:
 						if(employee_data(list, QTY_EMPLOYEE)==0)
 						{
@@ -72,8 +73,6 @@ int main(void)
 										break;
 									}
 							}while(opcionInforme!=4);
-
-
 								break;
 						}
 			}

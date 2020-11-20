@@ -21,8 +21,6 @@ static int employee_generarIdNuevo(void);
 int employee_menu(int* pOpcion)
 {
 	int retorno=-1;
-	int buffer;
-
 	printf("\n\n*************BIENVENIDO*************\n\n");
 	printf("****************************************\n\n");
 	printf("-*INGRESE LA OPCION QUE DESEE\n");
@@ -32,11 +30,8 @@ int employee_menu(int* pOpcion)
 	printf("*>OPCION 4: INFORMAR.\n");
 	printf("*>OPCION 5: SALIR.\n");
 
-	if(getInt("\n-*ingrese la opcion: ","Error",&buffer,3,5,1)==0)
-	{
-		*pOpcion=buffer;
-		retorno=0;
-	}
+	getInt("\n-*ingrese la opcion: ","Error",&retorno,3,5,1);
+	*pOpcion=retorno;
 	return retorno;
 }
 /*
@@ -47,7 +42,6 @@ int employee_menu(int* pOpcion)
 int employee_report(int* pOpcion)
 {
 	int retorno=-1;
-	int buffer;
 	printf("\n\n*************INFORMES*************\n\n");
 	printf("****************************************\n\n");
 	printf("-*INGRESE LA OPCION QUE DESEE\n");
@@ -57,11 +51,8 @@ int employee_report(int* pOpcion)
 	printf("*>OPCION 4: VOLVER AL MENU PRINCIPAL.\n");
 
 
-	if(getInt("\n-*ingrese la opcion: ","Error",&buffer,3,4,1)==0)
-	{
-		*pOpcion=buffer;
-		retorno=0;
-	}
+	getInt("\n-*ingrese la opcion: ","Error",&retorno,3,4,1);
+	*pOpcion=retorno;
 	return retorno;
 }
 /*
@@ -291,7 +282,6 @@ int employee_modify(Employee* pArray,int limite)
 int employee_unsubscribe(Employee* pArray,int limite)
 {
 	int retorno=-1;
-	int i;
 	int buscarId;
 	int indiceBorrar;
 	if(employee_imprimir(pArray,limite)==0)
@@ -303,9 +293,9 @@ int employee_unsubscribe(Employee* pArray,int limite)
 					{
 						if(pArray[indiceBorrar].isEmpty==FALSE)
 						{
-							pArray[i].isEmpty = TRUE;
+							pArray[indiceBorrar].isEmpty = TRUE;
 							retorno=0;
-							break;
+
 					}
 			}
 		}

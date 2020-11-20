@@ -31,7 +31,6 @@ int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int
 {
 	int retorno = -1;
 	char bufferChar[4096];
-	int resultadoScanf;
 	if(		mensaje != NULL &&
 			mensajeError != NULL &&
 			pResultado != NULL &&
@@ -43,10 +42,10 @@ int getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos,int
 			printf("%s",mensaje);
 			fflush(stdin);
 			if(myGets(bufferChar,LIMITE_NOMBRE) == 0 && strnlen(bufferChar,sizeof(bufferChar)-1)<= 4096 &&
-					esNumerica(bufferChar,4096) != 0 )
+					esNumerica(bufferChar,4096) == 1 )
 						{
 							retorno=0;
-							strncpy(pResultado,bufferChar,4096);
+							*pResultado=atoi(bufferChar);
 							break;
 						}
 			else
@@ -245,12 +244,13 @@ static int myGets(char* cadena, int longitud)
 
 	if(cadena != NULL && longitud > 0)
 	{
-		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL != cadena[0] != '\n')
+		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL && cadena[0] != '\n')
 			{
 				if(bufferString[strnlen(bufferString,sizeof(bufferString))-1] == '\n')
 				{
 					bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
 				}
+
 				if(strlen(bufferString) <= longitud)
 				{
 					strncpy(cadena,bufferString,longitud);
