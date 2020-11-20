@@ -11,6 +11,8 @@ int main()
     int flagTxt=0;
     int flagBin=0;
     LinkedList* listaEmpleados = ll_newLinkedList();
+
+
     if(listaEmpleados!=NULL)
     {
 		do
@@ -28,7 +30,7 @@ int main()
 						if(controller_loadFromBinary("datta.bin", listaEmpleados)==0)// && flagTxt==1)
 						{
 							flagBin=1;
-							printf("\n Archivo binario cargado correctamente");
+							printf("\n Archivo binario cargado correctamente ");
 						}
 						else
 						{
